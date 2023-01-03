@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>Multiplication Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+<body>
+    
+    <div id="container" >
+        <div class="img1 main_img"><img src="./img/mary.png" alt=""></div>
+       
+        <div class="your_level">
+            <div class="img"><img src="./img/santa.png" alt=""></div>
+            <div id="board">
+                <div class="scores">
+                    <div id="right">Ճիշտ է</div>
+                    <div id="wrong">Փորձիր կրկին</div>
+                </div>
+            
+                <div id="problem"></div>
+                <div id="instruction"></div>
+                <div id="answers">
+                    <div id="answer1" class="answer"></div>
+                    <div id="answer2" class="answer"></div>
+                    <div id="answer3" class="answer"></div>
+                    <div id="answer4" class="answer"></div>
+                </div>
+                <div class="myScore">
+               
+                    <div id="score" class="pul" style="background-color: #8F4FA0; color: #fff">ՓՈՒԼ: <span id="LevelNumber">1</span></div>                
+                    <div id="score" class="true">Ճիշտ՝ <span id="scoreNumber">0</span></div>
+                    <div id="score" class="false">Սխալ՝ <span id="falseScore">0</span></div>
+               </div>
+              
+
+              
+                <div class="run">
+                    <div id="start">Սկսել խաղը</div>
+                </div>
+                <div class="timer">
+                    <div id="time">Ժամանակ: <span id="remainingTime"></span>վրկ.</div>
+                </div>
+                <div id="gameover"><img src="./img/gameOver.png" alt=""></div>
+            </div>
+            <div class="img1"><img src="./img/MaryNersisyan1.png" alt=""></div>
+        </div>
+    </div>
+    <script src="./js/index.js"></script>
+    <script type="text/javascript">
+        snow_img = "./img/snejok2.png";  
+        snow_no = 25;                                                 //����� ��������
+        var timeszimaon = 1;                                          //��������� ������ 1 - ��, 0 - ���
+        if (typeof(window.pageYOffset) == "number") {
+        snow_browser_width = window.innerWidth;
+        snow_browser_height = window.innerHeight; }
+        else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
+        snow_browser_width = document.body.offsetWidth;
+        console.log(snow_browser_width);
+        snow_browser_height = document.body.offsetHeight; }
+        else if (document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
+        snow_browser_width = document.documentElement.offsetWidth;
+        snow_browser_height = document.documentElement.offsetHeight; }
+   
+        snow_dx = [];
+        snow_xp = [];
+        snow_yp = [];
+        snow_am = [];
+        snow_stx = [];
+        snow_sty = [];
+        if (timeszimaon == 1) {
+        for (i = 0; i < snow_no; i++) {
+        snow_dx[i] = 0;
+        snow_xp[i] = Math.random()*(snow_browser_width-50);
+        snow_yp[i] = Math.random()*snow_browser_height;
+        snow_am[i] = Math.random()*20;
+        snow_stx[i] = 0.02 + Math.random()/10;
+        snow_sty[i] = 0.7 + Math.random();
+        //����� �������� ������� �������� �� ���� z-index
+        if (i == 0) document.write("<\div id=\"snow_flake0\" style=\"position:absolute;z-index:0\"><a href=\"#\" target=\"_blank\"><\img src=\""+snow_img+"\" border=\"0\"></a><\/div>");
+        else document.write("<\div id=\"snow_flake"+ i +"\" style=\"position:absolute;z-index:10000"+i+"\"><\img src=\""+snow_img+"\" border=\"0\"><\/div>");
+        }
+        }
+        function SnowStart() {
+        for (i = 0; i < snow_no; i++) {
+        snow_yp[i] += snow_sty[i];
+        if (snow_yp[i] > snow_browser_height-50) {
+        snow_xp[i] = Math.random()*(snow_browser_width-snow_am[i]-30);
+        snow_yp[i] = 0;
+        snow_stx[i] = 0.02 + Math.random()/10;
+        snow_sty[i] = 0.7 + Math.random();}
+        snow_dx[i] += snow_stx[i];
+        document.getElementById("snow_flake"+i).style.top=snow_yp[i]+"px";
+        document.getElementById("snow_flake"+i).style.left=snow_xp[i] + snow_am[i]*Math.sin(snow_dx[i])+"px";}
+        snow_time = setTimeout("SnowStart()", 10); }
+        if (timeszimaon == 1) { SnowStart(); }
+        </script>
+</body>
+</html>
